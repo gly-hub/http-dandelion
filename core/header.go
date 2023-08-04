@@ -1,4 +1,4 @@
-package header
+package core
 
 type IHeader interface {
 	Request() IRequestHeader

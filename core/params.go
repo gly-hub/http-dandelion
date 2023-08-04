@@ -1,4 +1,4 @@
-package params
+package core
 
 type IParams interface {
 	Int(key string) (int, error)

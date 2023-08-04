@@ -1,4 +1,4 @@
-package params
+package gin
 
 import (
 	"errors"
@@ -8,20 +8,20 @@ import (
 	"strconv"
 )
 
-type GinParams struct {
+type Params struct {
 	Ctx *gin.Context
 }
 
-func (p GinParams) get(key string) string {
+func (p Params) get(key string) string {
 	return p.Ctx.Param(key)
 }
 
-func (p GinParams) Int(key string) (int, error) {
+func (p Params) Int(key string) (int, error) {
 	vStr := p.get(key)
 	return strconv.Atoi(vStr)
 }
 
-func (p GinParams) IntDefault(key string, def int) int {
+func (p Params) IntDefault(key string, def int) int {
 	vStr := p.get(key)
 	value, err := strconv.Atoi(vStr)
 	if err != nil {
@@ -30,7 +30,7 @@ func (p GinParams) IntDefault(key string, def int) int {
 	return value
 }
 
-func (p GinParams) Int32(key string) (int32, error) {
+func (p Params) Int32(key string) (int32, error) {
 	vStr := p.get(key)
 	value, err := strconv.ParseInt(vStr, 10, 32)
 	if err != nil {
@@ -39,7 +39,7 @@ func (p GinParams) Int32(key string) (int32, error) {
 	return int32(value), nil
 }
 
-func (p GinParams) Int32Default(key string, def int32) int32 {
+func (p Params) Int32Default(key string, def int32) int32 {
 	vStr := p.get(key)
 	value, err := strconv.ParseInt(vStr, 10, 32)
 	if err != nil {
@@ -48,7 +48,7 @@ func (p GinParams) Int32Default(key string, def int32) int32 {
 	return int32(value)
 }
 
-func (p GinParams) Int64(key string) (int32, error) {
+func (p Params) Int64(key string) (int32, error) {
 	vStr := p.get(key)
 	value, err := strconv.ParseInt(vStr, 10, 32)
 	if err != nil {
@@ -57,7 +57,7 @@ func (p GinParams) Int64(key string) (int32, error) {
 	return int32(value), nil
 }
 
-func (p GinParams) Int64Default(key string, def int64) int64 {
+func (p Params) Int64Default(key string, def int64) int64 {
 	vStr := p.get(key)
 	value, err := strconv.ParseInt(vStr, 10, 64)
 	if err != nil {
@@ -66,23 +66,23 @@ func (p GinParams) Int64Default(key string, def int64) int64 {
 	return value
 }
 
-func (p GinParams) Value(key string) string {
+func (p Params) Value(key string) string {
 	return p.get(key)
 }
 
-func (p GinParams) ValueDefault(key string, def string) string {
+func (p Params) ValueDefault(key string, def string) string {
 	if p.get(key) == "" {
 		return def
 	}
 	return p.get(key)
 }
 
-func (p GinParams) Bool(key string) (bool, error) {
+func (p Params) Bool(key string) (bool, error) {
 	vStr := p.get(key)
 	return strconv.ParseBool(vStr)
 }
 
-func (p GinParams) BoolDefault(key string, def bool) bool {
+func (p Params) BoolDefault(key string, def bool) bool {
 	vStr := p.get(key)
 	value, err := strconv.ParseBool(vStr)
 	if err != nil {
@@ -91,7 +91,7 @@ func (p GinParams) BoolDefault(key string, def bool) bool {
 	return value
 }
 
-func (p GinParams) Parser(outObj interface{}) error {
+func (p Params) Parser(outObj interface{}) error {
 	rv := reflect.ValueOf(outObj)
 	if rv.Kind() == reflect.Ptr {
 		rv = rv.Elem()

@@ -1,4 +1,4 @@
-package query
+package core
 
 type IQuery interface {
 	Int(key string) (int, error)
